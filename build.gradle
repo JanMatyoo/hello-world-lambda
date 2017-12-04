@@ -1,0 +1,31 @@
+apply plugin: 'java'
+//apply plugin: 'eclipse-wtp'
+//apply plugin: 'war'
+
+repositories {
+    jcenter()
+}
+
+jar {
+    from {
+        (configurations.runtime).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    manifest { attributes('Main-Class': 'com.esc.test.Application' ) }
+    baseName 'hello-world-v2'
+}
+
+dependencies {
+	compile 'org.mongodb:mongodb-driver:3.5.0'
+	compile 'com.amazonaws:aws-lambda-java-core:1.1.0'
+	compile 'com.amazonaws:aws-lambda-java-events:2.0.1'
+    compile 'com.google.code.gson:gson:2.8.0'
+	//compile('com.sparkjava:spark-core:2.5.4') {
+	//    exclude group: 'javax.servlet', module: 'javax.servlet-api'
+	//    exclude group: 'org.eclipse.jetty', module: 'jetty-server'
+	//}
+	compile 'org.mariadb.jdbc:mariadb-java-client:1.5.8'
+    compile 'org.slf4j:slf4j-log4j12:1.7.13'
+	testCompile 'junit:junit:4.12'
+}
